@@ -14,7 +14,7 @@ const generateToken = (user) => {
       userId: user.id
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" }
+    { expiresIn: "20s" }
   );
 };
 
@@ -28,7 +28,10 @@ router.post("/register", (req, res) => {
         .status(201)
         .json({ message: `Welcome ${user.username}!`, authToken: token });
     })
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // POST "/api/login"
